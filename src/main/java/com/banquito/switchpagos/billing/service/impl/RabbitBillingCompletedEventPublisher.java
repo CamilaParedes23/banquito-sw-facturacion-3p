@@ -4,9 +4,11 @@ import com.banquito.switchpagos.billing.dto.event.BillingCompletedEvent;
 import com.banquito.switchpagos.billing.service.BillingCompletedEventPublisher;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 @Service
+@ConditionalOnProperty(name = "messaging.provider", havingValue = "rabbitmq", matchIfMissing = true)
 public class RabbitBillingCompletedEventPublisher implements BillingCompletedEventPublisher {
 
     private final RabbitTemplate rabbitTemplate;
